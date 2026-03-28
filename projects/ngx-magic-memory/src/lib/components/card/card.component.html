@@ -6,10 +6,18 @@
 >
   <div class="card-inner">
     <div class="card-front">
-      <span class="card-back-content">{{ cardBack() }}</span>
+      @if (isImage(cardBack())) {
+        <img class="card-img" [src]="cardBack()" alt="card back" />
+      } @else {
+        <span class="card-back-content">{{ cardBack() }}</span>
+      }
     </div>
     <div class="card-back">
-      <span class="card-content">{{ card().content }}</span>
+      @if (isImage(card().content)) {
+        <img class="card-img" [src]="card().content" alt="card" />
+      } @else {
+        <span class="card-content">{{ card().content }}</span>
+      }
     </div>
   </div>
 </div>

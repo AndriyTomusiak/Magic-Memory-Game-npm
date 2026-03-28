@@ -11,6 +11,10 @@ export class CardComponent {
   readonly cardBack = input<string>('?');
   readonly cardClick = output<Card>();
 
+  isImage(value: string): boolean {
+    return /\.(png|jpe?g|svg|webp|gif|avif)(\?.*)?$/i.test(value) || value.startsWith('data:image/');
+  }
+
   onClick(): void {
     this.cardClick.emit(this.card());
   }
