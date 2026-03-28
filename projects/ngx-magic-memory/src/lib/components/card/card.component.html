@@ -1,0 +1,15 @@
+<div
+  class="card"
+  [class.flipped]="card().flipped"
+  [class.matched]="card().matched"
+  (click)="onClick()"
+>
+  <div class="card-inner">
+    <div class="card-front">
+      <span class="card-back-content">{{ cardBack() }}</span>
+    </div>
+    <div class="card-back">
+      <span class="card-content">{{ card().content }}</span>
+    </div>
+  </div>
+</div>

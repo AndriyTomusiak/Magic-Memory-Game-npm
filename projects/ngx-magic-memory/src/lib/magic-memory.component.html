@@ -1,0 +1,53 @@
+<div class="game-container">
+  <header class="header">
+    <h1 class="title">
+      <span class="magic">{{ config().title ?? 'Magic Memory' }}</span>
+    </h1>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Moves</span>
+        <span class="stat-value">{{ game.moves() }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Pairs</span>
+        <span class="stat-value">{{ game.matchedPairs() }} / {{ game.totalPairs() }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Hints</span>
+        <span class="stat-value">{{ game.hints() }}</span>
+      </div>
+    </div>
+  </header>
+
+  <button
+    class="btn hint-btn"
+    [class.disabled]="game.hints() <= 0"
+    [disabled]="game.hints() <= 0"
+    (click)="useHint()"
+  >
+    💡 Hint
+  </button>
+
+  <div class="board">
+    @for (card of game.cards(); track card.id) {
+      <mm-card
+        [card]="card"
+        [cardBack]="config().cardBack ?? '?'"
+        (cardClick)="onCardClick($event)"
+      />
+    }
+  </div>
+
+  @if (game.isGameWon()) {
+    <div class="win-overlay" (click)="newGame()">
+      <div class="win-modal">
+        <div class="win-emoji">🎉</div>
+        <h2>You Win!</h2>
+        <p>You found all pairs in <strong>{{ game.moves() }}</strong> moves</p>
+        <button class="btn" (click)="newGame()">Play Again</button>
+      </div>
+    </div>
+  }
+
+  <button class="btn restart-btn" (click)="newGame()">New Game</button>
+</div>
